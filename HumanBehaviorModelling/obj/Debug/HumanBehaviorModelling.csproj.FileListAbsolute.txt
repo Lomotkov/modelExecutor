@@ -1,0 +1,25 @@
+C:\Users\GiD\Documents\Visual Studio 2017\Projects\HumanBehaviorModelling\HumanBehaviorModelling\bin\Debug\HumanBehaviorModelling.exe.config
+C:\Users\GiD\Documents\Visual Studio 2017\Projects\HumanBehaviorModelling\HumanBehaviorModelling\bin\Debug\HumanBehaviorModelling.exe
+C:\Users\GiD\Documents\Visual Studio 2017\Projects\HumanBehaviorModelling\HumanBehaviorModelling\bin\Debug\HumanBehaviorModelling.pdb
+C:\Users\GiD\Documents\Visual Studio 2017\Projects\HumanBehaviorModelling\HumanBehaviorModelling\bin\Debug\Neo4j.Driver.dll
+C:\Users\GiD\Documents\Visual Studio 2017\Projects\HumanBehaviorModelling\HumanBehaviorModelling\bin\Debug\Neo4j.Driver.xml
+C:\Users\GiD\Documents\Visual Studio 2017\Projects\HumanBehaviorModelling\HumanBehaviorModelling\obj\Debug\HumanBehaviorModelling.csprojAssemblyReference.cache
+C:\Users\GiD\Documents\Visual Studio 2017\Projects\HumanBehaviorModelling\HumanBehaviorModelling\obj\Debug\HumanBehaviorModelling.MainForm.resources
+C:\Users\GiD\Documents\Visual Studio 2017\Projects\HumanBehaviorModelling\HumanBehaviorModelling\obj\Debug\HumanBehaviorModelling.Properties.Resources.resources
+C:\Users\GiD\Documents\Visual Studio 2017\Projects\HumanBehaviorModelling\HumanBehaviorModelling\obj\Debug\HumanBehaviorModelling.csproj.GenerateResource.cache
+C:\Users\GiD\Documents\Visual Studio 2017\Projects\HumanBehaviorModelling\HumanBehaviorModelling\obj\Debug\HumanBehaviorModelling.csproj.CoreCompileInputs.cache
+C:\Users\GiD\Documents\Visual Studio 2017\Projects\HumanBehaviorModelling\HumanBehaviorModelling\obj\Debug\HumanBehaviorModelling.csproj.CopyComplete
+C:\Users\GiD\Documents\Visual Studio 2017\Projects\HumanBehaviorModelling\HumanBehaviorModelling\obj\Debug\HumanBehaviorModelling.exe
+C:\Users\GiD\Documents\Visual Studio 2017\Projects\HumanBehaviorModelling\HumanBehaviorModelling\obj\Debug\HumanBehaviorModelling.pdb
+C:\Users\Дмитрий\Desktop\учеба 2.0\HumanBehaviorModelling\HumanBehaviorModelling\bin\Debug\HumanBehaviorModelling.exe.config
+C:\Users\Дмитрий\Desktop\учеба 2.0\HumanBehaviorModelling\HumanBehaviorModelling\bin\Debug\HumanBehaviorModelling.exe
+C:\Users\Дмитрий\Desktop\учеба 2.0\HumanBehaviorModelling\HumanBehaviorModelling\bin\Debug\HumanBehaviorModelling.pdb
+C:\Users\Дмитрий\Desktop\учеба 2.0\HumanBehaviorModelling\HumanBehaviorModelling\bin\Debug\Neo4j.Driver.dll
+C:\Users\Дмитрий\Desktop\учеба 2.0\HumanBehaviorModelling\HumanBehaviorModelling\bin\Debug\Neo4j.Driver.xml
+C:\Users\Дмитрий\Desktop\учеба 2.0\HumanBehaviorModelling\HumanBehaviorModelling\obj\Debug\HumanBehaviorModelling.csprojAssemblyReference.cache
+C:\Users\Дмитрий\Desktop\учеба 2.0\HumanBehaviorModelling\HumanBehaviorModelling\obj\Debug\HumanBehaviorModelling.MainForm.resources
+C:\Users\Дмитрий\Desktop\учеба 2.0\HumanBehaviorModelling\HumanBehaviorModelling\obj\Debug\HumanBehaviorModelling.Properties.Resources.resources
+C:\Users\Дмитрий\Desktop\учеба 2.0\HumanBehaviorModelling\HumanBehaviorModelling\obj\Debug\HumanBehaviorModelling.csproj.GenerateResource.cache
+C:\Users\Дмитрий\Desktop\учеба 2.0\HumanBehaviorModelling\HumanBehaviorModelling\obj\Debug\HumanBehaviorModelling.csproj.CopyComplete
+C:\Users\Дмитрий\Desktop\учеба 2.0\HumanBehaviorModelling\HumanBehaviorModelling\obj\Debug\HumanBehaviorModelling.exe
+C:\Users\Дмитрий\Desktop\учеба 2.0\HumanBehaviorModelling\HumanBehaviorModelling\obj\Debug\HumanBehaviorModelling.pdb
