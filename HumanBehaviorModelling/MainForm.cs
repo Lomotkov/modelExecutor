@@ -14,14 +14,14 @@ namespace HumanBehaviorModelling
 {
     public partial class MainForm : Form
     {
+        Random rnd = new Random();
         private int countOfSteps = 0;
         public MainForm()
         {
             InitializeComponent();
             chartWorkObject = new ChartWork();
             agentInstances = new List<string>();
-            chart1.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            chart2.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+
         }
         ChartWork chartWorkObject;
         NeoDataLoader neoDataLoader;
@@ -75,6 +75,8 @@ namespace HumanBehaviorModelling
                 parameters.Add("Состояние №", stateID + " ("
                                 + neoDataLoader.GetParameterValue(stateID, "name") + ")");
                 parameters.Add("Сытость: ", neoDataLoader.GetParameterValue(agentID, "Сытость"));
+                parameters.Add("X ", neoDataLoader.GetParameterValue(agentID, "X"));
+                parameters.Add("Y ", neoDataLoader.GetParameterValue(agentID, "Y"));
                 //List<String> ownedItemsId = neoDataLoader.GetRelatedNodesIdList("Принадлежит", agentID);
                 //foreach (string item in ownedItemsId)
                 //{
@@ -88,6 +90,10 @@ namespace HumanBehaviorModelling
                     parameters.Add("Переход в состояние " + neoDataLoader.GetParameterValue(state, "name"), neoDataLoader.GetRelationshipBetweenStatementsParameterValue(stateID, state, "comment"));
             }
             //dataGridView1.Rows.Add(parameters)
+            foreach (DataGridViewColumn c in dataGridView_agentParameters.Columns)
+            {
+                c.DefaultCellStyle.Font = new Font("Arial", 18F, GraphicsUnit.Pixel);
+            }
             dataGridView_agentParameters.DataSource = parameters.ToArray();
             dataGridView_agentParameters.Refresh();
         }
@@ -110,9 +116,27 @@ namespace HumanBehaviorModelling
                     currentStateFormula = neoDataLoader.GetParameterValue(currentStateID, "comment");
                 }
                 // Парсим формулу и применяем её (надо сделать проверку может ли она быть применена)
-
+                
                 FormulaParser(currentStateFormula, agentID);
-
+                try
+                {
+                    if (currentStateID.Equals("1"))
+                    { //1 = Перемещение (Это костыль) 
+                        neoDataLoader = new NeoDataLoader("bolt://localhost:" + textBox1.Text, textBox2.Text, textBox3.Text);
+                        moving(System.Convert.ToInt32(neoDataLoader.GetParameterValue(agentID, "X")), System.Convert.ToInt32(neoDataLoader.GetParameterValue(agentID, "Y")), agentID);
+                    }
+                }
+                catch (FormatException)
+                {
+                    // the FormatException is thrown when the string text does 
+                    // not represent a valid integer.
+                }
+                catch (OverflowException)
+                {
+                    // the OverflowException is thrown when the string is a valid integer, 
+                    // but is too large for a 32 bit integer.  Use Convert.ToInt64 in
+                    // this case.
+                }
                 //Здесь делаем проверку перехода в другое состояние и, если можем перейти, переходим
                 TransitionParser(); ////// Заглушка
             }
@@ -160,6 +184,12 @@ namespace HumanBehaviorModelling
             }
         }
 
+        public void moving(int X, int Y, string agentId) {
+            neoDataLoader = new NeoDataLoader("bolt://localhost:" + textBox1.Text, textBox2.Text, textBox3.Text);
+            neoDataLoader.SetNodeParameter(agentId, "X", (X += rnd.Next(2)).ToString());
+            neoDataLoader.SetNodeParameter(agentId, "Y", (Y += rnd.Next(2)).ToString());
+        }
+
         public void TransitionParser()
         {
             //List<String> relatedStatesId = neoDataLoader.GetStatesInWhichNodeGoes(stateID);
@@ -187,14 +217,12 @@ namespace HumanBehaviorModelling
                 List<string> agentsID = neoDataLoader.GetAllAgentsInstancesId();
                 double sum = 0;
                 foreach (string agent in agentsID)
-                    //sum += Convert.ToDouble(
-                    //    neoDataLoader.GetStatementResult(
-                    //        "match(n) < -[r: Принадлежит] - (m)where id(n) = " + agent + " return m.Количество"
-                    //        ).Single()[0].As<string>());
+                {
                     sum += Convert.ToDouble(
                         neoDataLoader.GetStatementResult(
                             "match(n) where id(n) = " + agent + " return n.Пища"
                             ).Single()[0].As<string>());
+                }
                 sum /= agentsID.Count();
                 return sum;
             }
@@ -215,13 +243,21 @@ namespace HumanBehaviorModelling
 
         private void showAVGSateityDiagram() {
             ChartArea chartArea = new ChartArea("MyChart");
+            var series = new System.Windows.Forms.DataVisualization.Charting.Series();
+            series.Font = new Font("Courier New", 40.0f, FontStyle.Italic);
+            chart1.Series[0] = series;
+            chart1.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             chart1.Series[0].Name = "Средний уровень сытости";
                     chart1.Series[0].Points.Clear();
                     for (int i = 0; i < chartWorkObject.averageSatiety.Count; i++)
                         chart1.Series[0].Points.AddXY(i, chartWorkObject.averageSatiety[i]);
         }
         private void showAVGFoodDiagram() {
-                    chart2.Series[0].Name = "Среднее количество пищи у агента";
+            var series = new System.Windows.Forms.DataVisualization.Charting.Series();
+            series.Font = new Font("Courier New", 40.0f, FontStyle.Italic);
+            chart2.Series[0] = series;
+            chart2.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            chart2.Series[0].Name = "Среднее количество пищи у агента";
                     chart2.Series[0].Points.Clear();
                     for (int i = 0; i < chartWorkObject.averageFood.Count; i++)
                         chart2.Series[0].Points.AddXY(i, chartWorkObject.averageFood[i]);
