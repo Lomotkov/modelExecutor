@@ -58,6 +58,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.tabControlMain.SuspendLayout();
             this.tabPage_Connection.SuspendLayout();
             this.tabPage_View.SuspendLayout();
@@ -172,6 +174,8 @@
             // 
             // tabPage_View
             // 
+            this.tabPage_View.Controls.Add(this.label8);
+            this.tabPage_View.Controls.Add(this.textBox5);
             this.tabPage_View.Controls.Add(this.label7);
             this.tabPage_View.Controls.Add(this.label6);
             this.tabPage_View.Controls.Add(this.button_nextStep);
@@ -331,6 +335,23 @@
             this.chart1.TabIndex = 1;
             this.chart1.Text = "chart1";
             // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(33, 389);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(100, 20);
+            this.textBox5.TabIndex = 7;
+            this.textBox5.Text = "1";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(30, 373);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(148, 13);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "Количество шагов за 1 раз:";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -378,6 +399,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBox5;
     }
 }
 

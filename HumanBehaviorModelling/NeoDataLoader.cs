@@ -36,9 +36,16 @@ namespace HumanBehaviorModelling
                 .As<string>();
         }
 
-        public List<String> GetAllAgentsInstancesId()
+        public List<String> GetAllInstancesIdByName(string nameOfClass)
         {
-            return GetStatementResult("match (n)-[r:Экземпляр]->(m:Агент) return id(n)")
+            return GetStatementResult("match (n)-[r:Экземпляр]->(m:"+ nameOfClass +") return id(n)")
+                .Select(record => record[0]
+                .As<string>())
+                .ToList();
+        }
+        public List<String> GetAllNodesWithNameInstancesId(string name)
+        {
+            return GetStatementResult("match (n:" + name + ") return id(n)")
                 .Select(record => record[0]
                 .As<string>())
                 .ToList();

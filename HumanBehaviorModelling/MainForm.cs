@@ -58,7 +58,7 @@ namespace HumanBehaviorModelling
             {
                 textBox4.Text = neoDataLoader.GetNumberOfAgents();
                 agentInstances = new List<string>();
-                agentInstances = neoDataLoader.GetAllAgentsInstancesId();
+                agentInstances = neoDataLoader.GetAllInstancesIdByName("Агент");
                 this.listBox_Agents.Items.Clear();
                 foreach (String str in agentInstances)
                     this.listBox_Agents.Items.Add("Человек. ID: " + str);
@@ -102,21 +102,38 @@ namespace HumanBehaviorModelling
         {
             using (neoDataLoader = new NeoDataLoader("bolt://localhost:" + textBox1.Text, textBox2.Text, textBox3.Text))
             {
-                agentInstances = neoDataLoader.GetAllAgentsInstancesId();
+                agentInstances = neoDataLoader.GetAllInstancesIdByName("Агент");
             }
 
             foreach (string agentID in agentInstances)
             {
                 // Получаем формулу на текущем состоянии
+
                 string currentStateID;
                 string currentStateFormula;
                 using (neoDataLoader = new NeoDataLoader("bolt://localhost:" + textBox1.Text, textBox2.Text, textBox3.Text))
                 {
+                    string stateID = neoDataLoader.GetParameterValue(agentID, "Состояние");
+                    List<String> relatedStatesId = neoDataLoader.GetStatesInWhichNodeGoes(stateID);
+                    foreach (string state in relatedStatesId)
+                    {
+                            if (ExpressionChecker(neoDataLoader.GetRelationshipBetweenStatementsParameterValue(stateID, state, "comment"))) // Состояние меняется каждый раз ДОПИШИ ПАРСЕР ФОРМУЛ я хочу спать, не могу
+                        {
+                            
+                            neoDataLoader.SetNodeParameter(agentID, "Состояние", state);
+                        }
+                        foreach (string food in neoDataLoader.GetAllNodesWithNameInstancesId("Пища")) //Тут состояние не менятся на покой пока не будет найдена пища 
+                        {
+                            if (checkSamePosition(food, agentID)) { 
+                                neoDataLoader.SetNodeParameter(agentID, "Состояние", "0");
+                            }
+                        }
+                    }
                     currentStateID = neoDataLoader.GetParameterValue(agentID, "Состояние");
                     currentStateFormula = neoDataLoader.GetParameterValue(currentStateID, "comment");
                 }
                 // Парсим формулу и применяем её (надо сделать проверку может ли она быть применена)
-                
+
                 FormulaParser(currentStateFormula, agentID);
                 try
                 {
@@ -140,6 +157,17 @@ namespace HumanBehaviorModelling
                 //Здесь делаем проверку перехода в другое состояние и, если можем перейти, переходим
                 TransitionParser(); ////// Заглушка
             }
+        }
+
+        public bool checkSamePosition(string firstObj, string secondObj ) {
+            return neoDataLoader.GetParameterValue(firstObj, "X").Equals(neoDataLoader.GetParameterValue(secondObj, "X"))
+                && neoDataLoader.GetParameterValue(firstObj, "Y").Equals(neoDataLoader.GetParameterValue(secondObj, "Y"));
+        }
+
+        private bool ExpressionChecker(string expression) { //TODO Доделать норм парсер формул и чекать
+            string[] ands = expression.Split(new string[] { "and" }, StringSplitOptions.None);
+            string[] ors = expression.Split(new string[] { "or" }, StringSplitOptions.None);
+            return true;
         }
 
         //Разбираем формулу на состоянии
@@ -186,9 +214,36 @@ namespace HumanBehaviorModelling
 
         public void moving(int X, int Y, string agentId) {
             neoDataLoader = new NeoDataLoader("bolt://localhost:" + textBox1.Text, textBox2.Text, textBox3.Text);
+            string neededItem = searchNeededItem(X, Y, agentId, "Объект");
+            if (neededItem != null)
+            {
+                movingToItem(X, Y, agentId, neededItem);
+            }
             neoDataLoader.SetNodeParameter(agentId, "X", (X += rnd.Next(2)).ToString());
             neoDataLoader.SetNodeParameter(agentId, "Y", (Y += rnd.Next(2)).ToString());
+        
         }
+
+        public void movingToItem(int X, int Y, string agentId, string item) {
+            int Xitem = Convert.ToInt32(neoDataLoader.GetParameterValue(item, "X"));
+            int Yitem = Convert.ToInt32(neoDataLoader.GetParameterValue(item, "Y"));
+            if (X < Xitem)
+            {
+                neoDataLoader.SetNodeParameter(agentId, "X", X++.ToString());
+            }
+            else {
+                neoDataLoader.SetNodeParameter(agentId, "X", X--.ToString());
+            }
+            if (Y < Yitem)
+            {
+                neoDataLoader.SetNodeParameter(agentId, "Y", Y++.ToString());
+            }
+            else
+            {
+                neoDataLoader.SetNodeParameter(agentId, "Y", Y--.ToString());
+            }
+        }
+
 
         public void TransitionParser()
         {
@@ -196,12 +251,25 @@ namespace HumanBehaviorModelling
             //foreach (string state in relatedStatesId)
             //    parameters.Add("Переход в состояние " + neoDataLoader.GetParameterValue(state, "name"), neoDataLoader.GetRelationshipBetweenStatementsParameterValue(stateID, state, "comment"));
         }
+        public string searchNeededItem(int X, int Y, string agentId, string neededItemName) {
+            List<string> items = neoDataLoader.GetAllInstancesIdByName(neededItemName);
+            foreach (string item in items) {
+                int rangeOfVision = Convert.ToInt32(neoDataLoader.GetParameterValue(agentId, "Обзор"));
+                int Xitem = Convert.ToInt32(neoDataLoader.GetParameterValue(item, "X"));
+                int Yitem = Convert.ToInt32(neoDataLoader.GetParameterValue(item, "Y"));
+                if ((Math.Pow(X - Xitem, 2) + Math.Pow(Y - Yitem, 2)) <= Math.Pow(rangeOfVision, 2)) {
+                    return item;
+                }
+
+            }
+            return null;
+        }
 
         public double CalculateAverageSatiety()
         {
             using (neoDataLoader = new NeoDataLoader("bolt://localhost:" + textBox1.Text, textBox2.Text, textBox3.Text))
             {
-                List<string> agentsID = neoDataLoader.GetAllAgentsInstancesId();
+                List<string> agentsID = neoDataLoader.GetAllInstancesIdByName("Агент");
                 double sum = 0;
                 foreach (string agent in agentsID)
                     sum += Convert.ToDouble(neoDataLoader.GetParameterValue(agent, "Сытость"));
@@ -214,7 +282,7 @@ namespace HumanBehaviorModelling
         {
             using (neoDataLoader = new NeoDataLoader("bolt://localhost:" + textBox1.Text, textBox2.Text, textBox3.Text))
             {
-                List<string> agentsID = neoDataLoader.GetAllAgentsInstancesId();
+                List<string> agentsID = neoDataLoader.GetAllInstancesIdByName("Агент");
                 double sum = 0;
                 foreach (string agent in agentsID)
                 {
@@ -230,14 +298,17 @@ namespace HumanBehaviorModelling
 
         private void button_nextStep_Click(object sender, EventArgs e)
         {
-            Algorithm();
-            Output();
-            chartWorkObject.averageSatiety.Add(CalculateAverageSatiety());
-            chartWorkObject.averageFood.Add(CalculateAverageFood());
-            showAVGFoodDiagram();
-            showAVGSateityDiagram();
-            countOfSteps++;
-            label7.Text = countOfSteps.ToString();
+            for (int i = 0; i < System.Convert.ToInt32(textBox5.Text); i++)
+            {
+                Algorithm();
+                Output();
+                chartWorkObject.averageSatiety.Add(CalculateAverageSatiety());
+                chartWorkObject.averageFood.Add(CalculateAverageFood());
+                showAVGFoodDiagram();
+                showAVGSateityDiagram();
+                countOfSteps++;
+                label7.Text = countOfSteps.ToString();
+            }
         }
 
 
