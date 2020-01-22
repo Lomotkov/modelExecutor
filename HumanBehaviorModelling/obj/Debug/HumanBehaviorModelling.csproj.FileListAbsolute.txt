@@ -23,3 +23,15 @@ C:\Users\Дмитрий\Desktop\учеба 2.0\HumanBehaviorModelling\HumanBehav
 C:\Users\Дмитрий\Desktop\учеба 2.0\HumanBehaviorModelling\HumanBehaviorModelling\obj\Debug\HumanBehaviorModelling.csproj.CopyComplete
 C:\Users\Дмитрий\Desktop\учеба 2.0\HumanBehaviorModelling\HumanBehaviorModelling\obj\Debug\HumanBehaviorModelling.exe
 C:\Users\Дмитрий\Desktop\учеба 2.0\HumanBehaviorModelling\HumanBehaviorModelling\obj\Debug\HumanBehaviorModelling.pdb
+C:\Users\dradx\Desktop\model\modelExecutor\HumanBehaviorModelling\bin\Debug\HumanBehaviorModelling.exe.config
+C:\Users\dradx\Desktop\model\modelExecutor\HumanBehaviorModelling\obj\Debug\HumanBehaviorModelling.exe
+C:\Users\dradx\Desktop\model\modelExecutor\HumanBehaviorModelling\obj\Debug\HumanBehaviorModelling.pdb
+C:\Users\dradx\Desktop\model\modelExecutor\HumanBehaviorModelling\bin\Debug\HumanBehaviorModelling.exe
+C:\Users\dradx\Desktop\model\modelExecutor\HumanBehaviorModelling\bin\Debug\HumanBehaviorModelling.pdb
+C:\Users\dradx\Desktop\model\modelExecutor\HumanBehaviorModelling\bin\Debug\Neo4j.Driver.dll
+C:\Users\dradx\Desktop\model\modelExecutor\HumanBehaviorModelling\bin\Debug\Neo4j.Driver.xml
+C:\Users\dradx\Desktop\model\modelExecutor\HumanBehaviorModelling\obj\Debug\HumanBehaviorModelling.csprojResolveAssemblyReference.cache
+C:\Users\dradx\Desktop\model\modelExecutor\HumanBehaviorModelling\obj\Debug\HumanBehaviorModelling.MainForm.resources
+C:\Users\dradx\Desktop\model\modelExecutor\HumanBehaviorModelling\obj\Debug\HumanBehaviorModelling.Properties.Resources.resources
+C:\Users\dradx\Desktop\model\modelExecutor\HumanBehaviorModelling\obj\Debug\HumanBehaviorModelling.csproj.GenerateResource.Cache
+C:\Users\dradx\Desktop\model\modelExecutor\HumanBehaviorModelling\bin\Debug\MathParser.org-mXparser.dll

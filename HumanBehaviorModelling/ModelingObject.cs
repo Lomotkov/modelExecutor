@@ -8,9 +8,11 @@ namespace HumanBehaviorModelling
 {
     class ModelingObject
     {
-        string X;
-        string Y;
+        int X;
+        int Y;
         string name;
+        int id;
+        Dictionary<string, string> connections;
 
     }
 }
