@@ -106,8 +106,8 @@ namespace HumanBehaviorModelling
                 List<String> relatedStatesId = neoDataLoader.GetStatesInWhichNodeGoes(stateID);
                 foreach (string state in relatedStatesId)
                 {
-                    //   if (ExpressionChecker(neoDataLoader.GetRelationshipBetweenStatementsParameterValue(stateID, state, "comment"))) // Состояние меняется каждый раз ДОПИШИ ПАРСЕР ФОРМУЛ я хочу спать, не могу
-                    if(ExpressionChecker("((0 = 0) and (80 >= 70)) or (102 = 100)"))
+                    string formulaForCheck = formulaReplacer(agentID,neoDataLoader.GetRelationshipBetweenStatementsParameterValue(stateID, state, "comment")); // Состояние меняется каждый раз ДОПИШИ ПАРСЕР ФОРМУЛ я хочу спать, не могу
+                    if(ExpressionChecker(formulaForCheck))
                     {
                         neoDataLoader.SetNodeParameter(agentID, "Состояние", state);
                     }
@@ -156,8 +156,20 @@ namespace HumanBehaviorModelling
             expression = expression.Replace("or", "|");
             expression = expression.Replace("and", "&");
             Expression e = new Expression(expression);
-            double f = e.calculate(); 
-            return true;
+            double f = e.calculate();
+            if (f != 0)
+            {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        private string formulaReplacer(string agentId, string formula) {
+            formula = formula.Replace("Пища",neoDataLoader.GetParameterValue(agentId, "Пища"));
+            formula = formula.Replace("Сытость", neoDataLoader.GetParameterValue(agentId, "Сытость"));
+            return formula;
         }
 
         //Разбираем формулу на состоянии

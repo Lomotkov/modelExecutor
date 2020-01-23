@@ -35,3 +35,4 @@ C:\Users\dradx\Desktop\model\modelExecutor\HumanBehaviorModelling\obj\Debug\Huma
 C:\Users\dradx\Desktop\model\modelExecutor\HumanBehaviorModelling\obj\Debug\HumanBehaviorModelling.Properties.Resources.resources
 C:\Users\dradx\Desktop\model\modelExecutor\HumanBehaviorModelling\obj\Debug\HumanBehaviorModelling.csproj.GenerateResource.Cache
 C:\Users\dradx\Desktop\model\modelExecutor\HumanBehaviorModelling\bin\Debug\MathParser.org-mXparser.dll
+C:\Users\Дмитрий\Desktop\учеба 2.0\HumanBehaviorModelling\HumanBehaviorModelling\bin\Debug\MathParser.org-mXparser.dll
